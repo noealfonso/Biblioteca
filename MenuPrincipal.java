@@ -7,17 +7,25 @@ public class MenuPrincipal extends JFrame {
 
     private JPanel panelContenedor;
     private JPanel panelPrincipal;
+    private JPanel panelCentro;
 
     public MenuPrincipal() {
         setTitle("Sistema de Gestión de Biblioteca" );
         setSize(1000,800);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        panelContenedor = new JPanel(new GridBagLayout());
+        panelContenedor = new JPanel(new BorderLayout());
         panelContenedor.setBackground(new Color(204, 214, 221));
         add(panelContenedor);
+        
         crearMenuPrincipal();
-        panelContenedor.add(panelPrincipal, new GridBagConstraints());
+        
+        panelCentro= new JPanel(new GridBagLayout());
+        panelCentro.setOpaque(false);
+
+        crearMenuPrincipal();
+        panelCentro.add(panelPrincipal,new GridBagConstraints());
+        panelContenedor.add(panelCentro,BorderLayout.CENTER);
         setVisible(true);
     }
 
