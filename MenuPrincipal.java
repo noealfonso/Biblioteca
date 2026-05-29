@@ -100,6 +100,7 @@ public class MenuPrincipal extends JFrame {
     }
 
     public void mostrarMenuInicio(){
+        panelContenedor.removeAll();
         panelContenedor.add(panelPrincipal,BorderLayout.CENTER);
         panelContenedor.revalidate();
         panelContenedor.repaint();
