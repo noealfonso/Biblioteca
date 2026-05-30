@@ -75,23 +75,22 @@ public class MenuPrincipal extends JFrame {
         });
 
         btnLibros.addActionListener(e-> {
+            Libros pantallaLibros= new Libros(MenuPrincipal.this);
+            cambiarPantalla(pantallaLibros);
 
         });
 
         btnPrestamos.addActionListener(e -> {
+            Prestamos pantallaPrestamos = new Prestamos(MenuPrincipal.this);
+            cambiarPantalla(pantallaPrestamos);
 
         });
-
-
 
         btnSalir.addActionListener(e -> {
             System.exit(0);
         });
-
-
-
-
     }
+
     public void cambiarPantalla(JPanel nuevaPantalla){
         panelContenedor.removeAll();
         panelContenedor.add(nuevaPantalla,BorderLayout.CENTER);
