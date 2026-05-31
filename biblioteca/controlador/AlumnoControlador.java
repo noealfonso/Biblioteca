@@ -1,8 +1,11 @@
 package biblioteca.controlador;
 import biblioteca.modelo.Alumno;
 import biblioteca.repositorio.RepositorioAlumnos;
+import biblioteca.vista.consola.ConversionFecha;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 /**
  * Controlador que maneja todo lo relacionado con los alumnos.
@@ -13,11 +16,12 @@ public class AlumnoControlador {
 
     private static RepositorioAlumnos repositorio= new RepositorioAlumnos();
 
-    public boolean crearAlumno(Alumno alumno ){
+    public boolean crearAlumno(String nombre,int ci , String email, String telefono, LocalDate fecha, String facultad){
+        Alumno alumno= new Alumno(nombre,ci,email, telefono,fecha,facultad);
         return repositorio.crear(alumno);
     }
 
-    public boolean editarAlumno(String nombre,int ci , String email, String telefono, LocalDate fecha, String facultad){
+    public boolean editarAlumno(String nombre,int ci, String email, String telefono, LocalDate fecha, String facultad){
         Alumno alumnoNuevo= new Alumno(nombre,ci,email, telefono,fecha,facultad);
         return repositorio.editar(alumnoNuevo);
     }
@@ -26,30 +30,59 @@ public class AlumnoControlador {
         return repositorio.borrar(alumno);
     }
 
+
+    public List<String> listarAlumnos() {
+        return convertirListaAString(repositorio.getList());
+    }
+
+
+    public List<String> ordenarListaPorNombre() {
+        List<Alumno> lista = repositorio.getList();
+        lista.sort(Comparator.comparing(Alumno::getNombreCompleto));
+        return convertirListaAString(lista);
+    }
+
+    public List<String> ordenarListaPorEdad() {
+        List<Alumno> lista = repositorio.getList();
+        lista.sort(Comparator.comparing(Alumno::getFechaNacimiento));
+        return convertirListaAString(lista);
+    }
+
     /**
      * Recupera todos los alumnos y los formatea en cadenas de texto separadas por punto y coma.
      * Es útil para transferir datos a la vista sin exponer directamente los objetos del modelo.
-     *
      * @return Lista de strings con el formato: "ci;nombre;email;telefono;fechaNacimiento;facultad"
      */
-    public List<String> listarAlumnos() {
-        List<Alumno> listaOriginal = repositorio.getList();
+    private List<String> convertirListaAString(List<Alumno> listaOriginal) {
         List<String> listaParaVista = new ArrayList<>();
-
         for (Alumno a : listaOriginal) {
+            String fechaString = ConversionFecha.formatearFecha(a.getFechaNacimiento());
             String datos = a.getCi() + ";" +
                     a.getNombreCompleto() + ";" +
                     a.getEmail() + ";" +
                     a.getTelefono() + ";" +
-                    a.getFechaNacimiento() + ";" +
+                    fechaString + ";" +
                     a.getFacultadPerteneciente();
-
             listaParaVista.add(datos);
         }
         return listaParaVista;
     }
     public Alumno obtenerAlumnoPorCi( int ci){
         return repositorio.obtenerPorCi(ci);
+    }
+    
+    public String obtenerDatosPorCi(int ci){
+        Alumno a = repositorio.obtenerPorCi(ci);
+        if (a == null) {
+            return null;
+        }
+        return  a.getCi() + ";" +
+                a.getNombreCompleto() + ";" +
+                a.getEmail() + ";" +
+                a.getTelefono() + ";" +
+                ConversionFecha.formatearFecha(a.getFechaNacimiento()) + ";" +
+                a.getFacultadPerteneciente();
+
     }
 
     /**
@@ -59,4 +92,6 @@ public class AlumnoControlador {
     public boolean existe(int ci) {
         return repositorio.obtenerPorCi(ci) != null;
     }
+
+
 }

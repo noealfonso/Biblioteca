@@ -1,6 +1,7 @@
-package biblioteca.vista;
+package biblioteca.vista.consola;
 import biblioteca.controlador.AlumnoControlador;
 import biblioteca.modelo.Alumno;
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -187,8 +188,7 @@ public class AlumnoVista extends ModeloVista {
             System.out.println("Ingrese su Facultad: ");
             String facultad= teclado.nextLine();
 
-            Alumno nuevoAlumno=new Alumno(nombre,ci,email,telefono,fechaNacimiento,facultad);
-            control.crearAlumno(nuevoAlumno);
+            control.crearAlumno(nombre,ci,email,telefono,fechaNacimiento,facultad);
             System.out.println("Alumno creado con éxito.");
             System.out.println();
 
@@ -196,3 +196,4 @@ public class AlumnoVista extends ModeloVista {
     }
 
 }
+
