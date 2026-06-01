@@ -1,11 +1,12 @@
 package biblioteca.modelo;
 import java.util.Objects;
+import java.io.Serializable;
 /**
  * Representa a un Libro dentro del sistema de biblioteca.
  * Esta clase actúa como un Modelo de datos .
  * @author Noelia Alfonso
  */
-public class Libro  {
+public class Libro implements Serializable {
 
     private long id=0;
     private String titulo="";
