@@ -2,14 +2,14 @@ package biblioteca.modelo;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
-
+import java.io.Serializable;
 /**
  * Representa a un Prestamo dentro del sistema de biblioteca.
  * Esta clase actúa como un Modelo de datos .
  * @author Noelia Alfonso
  */
 
-public class Prestamo {
+public class Prestamo implements Serializable{
 
     private static long idPrestamoGlobal= 1000;
     private long idPrestamo=0;
