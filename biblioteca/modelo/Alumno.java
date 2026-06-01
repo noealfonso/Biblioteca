@@ -1,6 +1,7 @@
 package biblioteca.modelo;
 import java.time.LocalDate;
 import java.util.Objects;
+import java.io.Serializable;
 
 /**
  * Representa a un Alumno dentro del sistema de biblioteca.
@@ -8,7 +9,7 @@ import java.util.Objects;
  * * @author Noelia Alfonso
  */
 
-public class Alumno  {
+public class Alumno implements Serializable {
 
     private String nombreCompleto="";
     private int ci=0;
